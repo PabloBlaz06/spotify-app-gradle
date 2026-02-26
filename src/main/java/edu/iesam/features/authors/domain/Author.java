@@ -14,7 +14,6 @@ public class Author {
         this.nationality = nationality;
     }
 
-
     public String getId() {
         return id;
     }

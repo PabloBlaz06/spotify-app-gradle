@@ -1,10 +1,11 @@
 package edu.iesam.features.authors.presentation;
 
-import features.authors.data.AuthorApiLocalDataSource;
-import features.authors.data.AuthorDataRepository;
-import features.authors.data.AuthorMemLocalDataSource;
-import features.authors.domain.Author;
-import features.authors.domain.GetAuthorsUseCase;
+import edu.iesam.features.authors.data.AuthorDataRepository;
+import edu.iesam.features.authors.data.AuthorMemLocalDataSource;
+import edu.iesam.features.authors.domain.Author;
+import edu.iesam.features.authors.domain.DeleteAuthorsUseCase;
+import edu.iesam.features.authors.domain.GetAuthorsUseCase;
+import edu.iesam.features.authors.domain.SaveAuthorsUseCase;
 
 import java.util.ArrayList;
 
@@ -12,12 +13,26 @@ public class AuthorView {
 
     public static void printAuthors() {
         GetAuthorsUseCase getAuthorsUseCase = new GetAuthorsUseCase(
-                new AuthorDataRepository(
-                        new AuthorMemLocalDataSource(),
-                        new AuthorApiLocalDataSource()));
+                new AuthorDataRepository(AuthorMemLocalDataSource.newInstance()));
 
         ArrayList<Author> authors = getAuthorsUseCase.execute();
         System.out.println(authors);
+    }
+
+    public static void saveAuthors() {
+        Author newAuthor = new Author("2", "name2", "2000", "España");
+
+        SaveAuthorsUseCase saveAuthorsUseCase = new SaveAuthorsUseCase(
+                new AuthorDataRepository(AuthorMemLocalDataSource.newInstance()));
+
+        saveAuthorsUseCase.execute(newAuthor);
+    }
+
+    public static void deleteAuthor(String authorId) {
+        DeleteAuthorsUseCase deleteAuthorUseCase = new DeleteAuthorsUseCase(
+                new AuthorDataRepository(AuthorMemLocalDataSource.newInstance()));
+
+        deleteAuthorUseCase.execute(authorId);
     }
 
 }

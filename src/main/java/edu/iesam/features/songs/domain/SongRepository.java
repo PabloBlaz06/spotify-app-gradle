@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public interface SongRepository {
 
-    public ArrayList<Song> findAll();
+    public ArrayList<Song> getSongs();
+    public void saveSong(Song song);
+    public void deleteSong(String songId);
 
 }

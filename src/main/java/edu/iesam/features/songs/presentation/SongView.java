@@ -1,20 +1,39 @@
 package edu.iesam.features.songs.presentation;
 
-import features.songs.data.SongDataRepository;
-import features.songs.domain.GetSongsUseCase;
-import features.songs.domain.Song;
+import edu.iesam.features.songs.data.SongDataRepository;
+import edu.iesam.features.songs.data.SongMemLocalDataSource;
+import edu.iesam.features.songs.domain.DeleteSongsUseCase;
+import edu.iesam.features.songs.domain.GetSongsUseCase;
+import edu.iesam.features.songs.domain.SaveSongsUseCase;
+import edu.iesam.features.songs.domain.Song;
 
 import java.util.ArrayList;
 
 public class SongView {
 
-    public static void printSongs (){
+    public static void printSongs() {
+        GetSongsUseCase getSongsUseCase = new GetSongsUseCase(
+                new SongDataRepository(SongMemLocalDataSource.newInstance()));
 
-        GetSongsUseCase getSongsUseCase = new GetSongsUseCase(new SongDataRepository());
+        ArrayList<Song> songs = getSongsUseCase.execute();
 
-        ArrayList<Song> songsList = new ArrayList<>();
-        songsList = getSongsUseCase.execute();
-
-        System.out.println(songsList);
+        System.out.println(songs);
     }
+
+    public static void saveSongs() {
+        Song newSong = new Song("2", "name2", "random", "3:00");
+
+        SaveSongsUseCase saveSongsUseCase = new SaveSongsUseCase(
+                new SongDataRepository(SongMemLocalDataSource.newInstance()));
+
+        saveSongsUseCase.execute(newSong);
+    }
+
+    public static void deleteSongs(String songId) {
+        DeleteSongsUseCase deleteSongsUseCase = new DeleteSongsUseCase(
+                new SongDataRepository(SongMemLocalDataSource.newInstance()));
+
+        deleteSongsUseCase.execute(songId);
+    }
+
 }

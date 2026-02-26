@@ -1,24 +1,31 @@
 package edu.iesam.features.authors.data;
 
-import features.authors.domain.Author;
-import features.authors.domain.AuthorRepository;
+import edu.iesam.features.authors.domain.Author;
+import edu.iesam.features.authors.domain.AuthorRepository;
 
 import java.util.ArrayList;
 
 public class AuthorDataRepository implements AuthorRepository {
 
     private AuthorMemLocalDataSource authorMemLocalDataSource;
-    private AuthorApiLocalDataSource authorApiLocalDataSource;
 
-    public AuthorDataRepository(AuthorMemLocalDataSource authorMemLocalDataSource,
-                                AuthorApiLocalDataSource authorApiLocalDataSource) {
+    public AuthorDataRepository(AuthorMemLocalDataSource authorMemLocalDataSource) {
         this.authorMemLocalDataSource = authorMemLocalDataSource;
-        this.authorApiLocalDataSource = authorApiLocalDataSource;
     }
-
 
     @Override
     public ArrayList<Author> getAuthors() {
         return authorMemLocalDataSource.findAll();
     }
+
+    @Override
+    public void saveAuthor(Author author) {
+        authorMemLocalDataSource.save(author);
+    }
+
+    @Override
+    public void deleteAuthor(String authorId) {
+        authorMemLocalDataSource.delete(authorId);
+    }
+
 }

@@ -1,4 +1,4 @@
-package edu.iesam.features.album.domain;
+package edu.iesam.features.albums.domain;
 
 public class Album {
 
@@ -11,6 +11,7 @@ public class Album {
         this.name = name;
         this.year = year;
     }
+
 
     public String getId() {
         return id;

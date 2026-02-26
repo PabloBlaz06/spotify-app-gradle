@@ -1,31 +1,31 @@
 package edu.iesam.features.songs.data;
 
-import features.songs.domain.Song;
-import features.songs.domain.SongRepository;
+import edu.iesam.features.songs.domain.Song;
+import edu.iesam.features.songs.domain.SongRepository;
 
 import java.util.ArrayList;
 
 public class SongDataRepository implements SongRepository {
-    @Override
-    public ArrayList<Song> findAll() {
-        Song song1 = new Song();
-        song1.setId("1");
-        song1.setTitle("Macarena");
-        song1.setAuthor("Los del rio");
-        song1.setDuration("4:00:00");
 
-        Song song2 = new Song();
-        song2.setId("2");
-        song2.setTitle("Pollito pio");
-        song2.setAuthor("las ketchup");
-        song2.setDuration("3:00:00");
+    private SongMemLocalDataSource songMemLocalDataSource;
 
-        ArrayList<Song> songs = new ArrayList<>();
-        songs.add(song1);
-        songs.add(song2);
-
-        return songs;
+    public SongDataRepository(SongMemLocalDataSource songMemLocalDataSource) {
+        this.songMemLocalDataSource = songMemLocalDataSource;
     }
 
+    @Override
+    public ArrayList<Song> getSongs() {
+        return songMemLocalDataSource.findAll();
+    }
+
+    @Override
+    public void saveSong(Song song) {
+        songMemLocalDataSource.save(song);
+    }
+
+    @Override
+    public void deleteSong(String songId) {
+        songMemLocalDataSource.delete(songId);
+    }
 
 }

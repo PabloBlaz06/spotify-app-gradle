@@ -6,11 +6,12 @@ public class GetSongsUseCase {
 
     private SongRepository songRepository;
 
-    public GetSongsUseCase (SongRepository songRepository){
+    public GetSongsUseCase(SongRepository songRepository) {
         this.songRepository = songRepository;
     }
 
     public ArrayList<Song> execute() {
-        return songRepository.findAll();
+        return songRepository.getSongs();
     }
+
 }

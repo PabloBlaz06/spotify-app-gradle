@@ -1,18 +1,20 @@
 package edu.iesam.features.authors.data;
 
-import features.authors.domain.Author;
+import edu.iesam.features.authors.domain.Author;
 
 import java.util.ArrayList;
 
 public class AuthorMemLocalDataSource {
 
-    public ArrayList<Author> authorsMemStorage = new ArrayList<>();
+    private static AuthorMemLocalDataSource instance = null;
+
+    private ArrayList<Author> authorsMemStorage = new ArrayList<>();
 
     public AuthorMemLocalDataSource() {
         initData();
     }
 
-    private void initData(){
+    public void initData() {
         Author author1 = new Author("1", "MemExtremoduro", "01-01-1970", "Española");
         authorsMemStorage.add(author1);
 
@@ -20,11 +22,24 @@ public class AuthorMemLocalDataSource {
         authorsMemStorage.add(author2);
     }
 
-    public ArrayList<Author> findAll(){
+    public ArrayList<Author> findAll() {
         return authorsMemStorage;
     }
 
-    public void save(Author author){
+    public void save(Author author) {
         authorsMemStorage.add(author);
     }
+
+    public void delete(String authorId) {
+        authorsMemStorage.removeIf(author -> author.getId().equals(authorId));
+    }
+
+    public static AuthorMemLocalDataSource newInstance(){
+        if (instance == null){
+            instance = new AuthorMemLocalDataSource();
+        }
+
+        return instance;
+    }
+
 }

@@ -1,7 +1,8 @@
-package edu.iesam.features.album.data;
+package edu.iesam.features.albums.data;
 
-import features.album.domain.Album;
-import features.album.domain.AlbumRepository;
+
+import edu.iesam.features.albums.domain.Album;
+import edu.iesam.features.albums.domain.AlbumRepository;
 
 import java.util.ArrayList;
 
@@ -22,4 +23,10 @@ public class AlbumDataRepository implements AlbumRepository {
     public void saveAlbum(Album album) {
         albumMemLocalDataSource.save(album);
     }
+
+    @Override
+    public void deleteAlbum(String albumId) {
+        albumMemLocalDataSource.delete(albumId);
+    }
+
 }
